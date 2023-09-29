@@ -20,26 +20,24 @@ const userSchema = new mongoose.Schema({
   },
   image: {
     type: String,
-    required: true,
   },
   mobileNo: {
     type: String,
-    required: true,
   },
   domain: {
     type: [String],
-    required: true,
   },
   gender: {
     type: String,
-    required: true,
   },
   isMentor: {
     type: Number,
-    required: true,
+    default: 0,
   },
   isVerified: {
     type: Number,
     default: 0,
   },
 });
+
+export default mongoose.model("User", userSchema);
