@@ -1,17 +1,21 @@
 import express from "express";
-import { registerUser, loginUser } from "../controllers/userController.js";
+import {
+  registerUser,
+  loginUser,
+  getUserInfo,
+} from "../controllers/userController.js";
 import { getProj, uploadProj } from "../controllers/productController.js";
 
 const router = express.Router();
 
-console.log("Router loaded");
-
+//Sign-up User as well as Mentor
 router.post("/register", registerUser);
-
 router.post("/login", loginUser);
 
-router.post("/upload", uploadProj);
+//getting the data of the user
+router.get("/users/:id", getUserInfo);
 
+router.post("/upload", uploadProj);
 router.get("getProj", getProj);
 
 export default router;

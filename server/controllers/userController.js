@@ -10,7 +10,7 @@ const registerUser = async (req, res) => {
     const hashedPassword = await hashPassword(password);
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return res.status(400).json({
+      return res.status(400).send({
         success: false,
         message: "User already exists",
       });
@@ -19,13 +19,13 @@ const registerUser = async (req, res) => {
     await user.save();
 
     // Send a success response to the client
-    return res.status(201).json({
+    return res.status(201).send({
       success: true,
       message: "User registered successfully",
     });
   } catch (error) {
     console.error(error);
-    return res.status(500).json({
+    return res.status(500).send({
       success: false,
       message: "Internal Server Error",
       error: error.message,
@@ -38,21 +38,21 @@ const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
     if (!email || !password) {
-      return res.status(400).json({
+      return res.status(400).send({
         success: false,
         message: "Please provide email and password",
       });
     }
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(400).json({
+      return res.status(400).send({
         success: false,
         message: "Invalid Credentials",
       });
     }
     const isMatch = await comparePassword(password, user.password);
     if (!isMatch) {
-      return res.status(400).json({
+      return res.status(400).send({
         success: false,
         message: "Incorrect Password",
       });
@@ -60,7 +60,7 @@ const loginUser = async (req, res) => {
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
       expiresIn: "7d",
     });
-    return res.status(200).json({
+    return res.status(200).send({
       success: true,
       message: "User logged in successfully",
       token,
@@ -72,7 +72,7 @@ const loginUser = async (req, res) => {
       },
     });
   } catch (error) {
-    return res.status(500).json({
+    return res.status(500).send({
       success: false,
       message: "Error in logging in user",
       error: error.message,
@@ -80,4 +80,29 @@ const loginUser = async (req, res) => {
   }
 };
 
-export { registerUser, loginUser };
+const getUserInfo = async (req, res) => {
+  try {
+    const user_id = req.params.id;
+    const userData = await User.findOne({ _id: user_id });
+    if (!userData) {
+      return res.status(404).send({
+        success: false,
+        message: "Error in getting or finding User",
+        error,
+      });
+    }
+    return res.status(200).send({
+      success: true,
+      message: "User get Sucessfully",
+      userData,
+    });
+  } catch (error) {
+    return res.status(500).send({
+      success: false,
+      message: "Error in getting User from db",
+      error: error.message,
+    });
+  }
+};
+
+export { registerUser, loginUser, getUserInfo };
