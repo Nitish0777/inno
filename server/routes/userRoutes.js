@@ -15,9 +15,10 @@ router.post("/login", loginUser);
 
 //getting the data of the user
 router.get("/users/:id", getUserInfo);
+
+//updating the data of the user
 router.get("/userupdate/:id", updateUserInfo);
 
-router.post("/upload", uploadProj);
-router.get("getProj", getProj);
+//updating image of the user
 
 export default router;

@@ -176,4 +176,36 @@ const updateUserInfo = async (req, res) => {
   }
 };
 
+//I have to work on this, check this api
+const updateUserImg = async (req, res) => {
+  try {
+    const { image } = req.body;
+    const user = await User.findById({ _id: req.params.id });
+    if (!user) {
+      return res.status(404).send({
+        success: false,
+        message: "User not found",
+      });
+    }
+    const updateUser = User.findByIdAndUpdate(
+      req.user._id,
+      {
+        image: image || user.image,
+      },
+      { new: true }
+    );
+    res.status(200).send({
+      success: true,
+      message: "User Image updated successfully",
+      updateUser,
+    });
+  } catch (error) {
+    return res.status(500).send({
+      success: false,
+      message: "Error in updating User Image into db",
+      error: error.message,
+    });
+  }
+};
+
 export { registerUser, loginUser, getUserInfo, updateUserInfo };
