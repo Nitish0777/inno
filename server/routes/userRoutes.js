@@ -6,7 +6,6 @@ import {
   updateUserInfo,
   updateUserImg,
 } from "../controllers/userController.js";
-import { getProj, uploadProj } from "../controllers/projectController.js";
 
 const router = express.Router();
 

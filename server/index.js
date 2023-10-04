@@ -5,6 +5,7 @@ import db from "./config/db.js";
 import cors from "cors";
 import morgan from "morgan";
 import userRoutes from "./routes/userRoutes.js";
+import projectRoutes from "./routes/projectsRoute.js";
 
 //configuring dotenv
 dotenv.config();
@@ -20,8 +21,9 @@ app.use(express.json());
 app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: true }));
 
-//api for fecting data
+//path for getting data from database
 app.use("/api/users", userRoutes);
+app.use("/api/projects", projectRoutes);
 
 const port = process.env.PORT || 3000;
 
