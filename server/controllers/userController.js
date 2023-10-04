@@ -176,7 +176,7 @@ const updateUserInfo = async (req, res) => {
   }
 };
 
-//I have to work on this, check this api
+//I have to work on this, check this api`
 const updateUserImg = async (req, res) => {
   try {
     const { image } = req.body;
@@ -208,4 +208,4 @@ const updateUserImg = async (req, res) => {
   }
 };
 
-export { registerUser, loginUser, getUserInfo, updateUserInfo };
+export { registerUser, loginUser, getUserInfo, updateUserInfo, updateUserImg };

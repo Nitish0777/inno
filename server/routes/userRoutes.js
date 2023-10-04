@@ -4,6 +4,7 @@ import {
   loginUser,
   getUserInfo,
   updateUserInfo,
+  updateUserImg,
 } from "../controllers/userController.js";
 import { getProj, uploadProj } from "../controllers/projectController.js";
 
@@ -20,5 +21,6 @@ router.get("/users/:id", getUserInfo);
 router.get("/userupdate/:id", updateUserInfo);
 
 //updating image of the user
+router.get("/userimage/:id", updateUserImg);
 
 export default router;
