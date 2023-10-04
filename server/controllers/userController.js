@@ -3,7 +3,7 @@ import { comparePassword, hashPassword } from "../helpers/authHelper.js";
 import jwt from "jsonwebtoken";
 import randomstring from "randomstring";
 
-// register controller --------------- 1---------------- http://localhost:8000/api/users/register
+// register controller --------------- 1---------------- http://localhost:8000/api/users/register -------- Working
 const registerUser = async (req, res) => {
   try {
     const { college, name, email, password } = req.body;
@@ -80,6 +80,7 @@ const loginUser = async (req, res) => {
   }
 };
 
+// get user info controller --------------- 3---------------- http://localhost:8000/api/users/users/:id
 const getUserInfo = async (req, res) => {
   try {
     const user_id = req.params.id;
