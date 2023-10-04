@@ -105,4 +105,75 @@ const getUserInfo = async (req, res) => {
   }
 };
 
-export { registerUser, loginUser, getUserInfo };
+const updateUserInfo = async (req, res) => {
+  try {
+    const {
+      name,
+      email,
+      password,
+      college,
+      course,
+      passYear,
+      sem_year,
+      location,
+      instagram,
+      linkdin,
+      website,
+      github,
+      technology,
+      programming,
+      image,
+      bio,
+    } = req.body;
+
+    const user = await User.findById({ _id: req.params.id });
+    if (!user) {
+      return res.status(404).send({
+        success: false,
+        message: "User not found",
+      });
+    }
+    if (password && password.length < 6) {
+      return res.status(400).send({
+        success: false,
+        message: "Password must be atleast 6 characters long",
+      });
+    }
+    const hashedPassword = password ? await hashPassword(password) : undefined;
+    const updateUser = User.findByIdAndUpdate(
+      req.user._id,
+      {
+        name: name || user.name,
+        email: email || user.email,
+        password: hashedPassword || user.password,
+        college: college || user.college,
+        course: course || user.course,
+        passYear: passYear || user.passYear,
+        sem_year: sem_year || user.sem_year,
+        location: location || user.location,
+        instagram: instagram || user.instagram,
+        linkdin: linkdin || user.linkdin,
+        website: website || user.website,
+        github: github || user.github,
+        technology: technology || user.technology,
+        programming: programming || user.programming,
+        image: image || user.image,
+        bio: bio || user.bio,
+      },
+      { new: true }
+    );
+    res.status(200).send({
+      success: true,
+      message: "User updated successfully",
+      updateUser,
+    });
+  } catch (error) {
+    return res.status(500).send({
+      success: false,
+      message: "Error in updating User into db",
+      error: error.message,
+    });
+  }
+};
+
+export { registerUser, loginUser, getUserInfo, updateUserInfo };
