@@ -6,6 +6,7 @@ import {
   updateUserInfo,
   updateUserImg,
 } from "../controllers/userController.js";
+import { requireSignIn } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
@@ -14,7 +15,7 @@ router.post("/register", registerUser);
 router.post("/login", loginUser);
 
 //getting the data of the user
-router.get("/users/:id", getUserInfo);
+router.get("/users/:id", requireSignIn, getUserInfo);
 
 //updating the data of the user
 router.get("/userupdate/:id", updateUserInfo);
