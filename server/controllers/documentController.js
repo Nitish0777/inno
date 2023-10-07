@@ -1,11 +1,13 @@
+import document from "../models/document.js";
+
 const uploadDocumentation = async (req, res) => {
   try {
     let filesUrl = null;
+    const { heading, discription, project_id } = req.body;
 
     if (req.files) {
-      filesUrl = req.files.map((file) => {
-        return file.path;
-      });
+      const file = req.files.docImg;
+
     }
   } catch (error) {
     return res.status(500).send({
