@@ -1,19 +1,4 @@
-import User from "../models/user"; // import the User model from your project
-
-function addUserToDatabase(user, role) {
-  const newUser = new User({
-    email: user.email,
-    isMentor: role === "mentor" ? 1 : 0,
-  });
-
-  newUser.save((err) => {
-    if (err) {
-      console.error(err);
-      return false;
-    }
-    return true;
-  });
-}
+import User from "../models/user.js";
 
 const addMentorOrStudentWithHelpOfEmail = (req, res) => {
   const regex = /\S+@\S+\.\S+/;
@@ -25,7 +10,7 @@ const addMentorOrStudentWithHelpOfEmail = (req, res) => {
     });
   }
   // check if user already exists in the database
-  const userExists = checkIfUserExists(email);
+  const userExists = User.findOne({ email });
   if (userExists) {
     return res.status(400).json({
       status: 400,
@@ -34,10 +19,11 @@ const addMentorOrStudentWithHelpOfEmail = (req, res) => {
   }
   const role = /^\d+$/.test(email) ? 0 : 1; // check if email contains only integers
   // set role accordingly
-  req.user.role = role === 0 ? "student" : "mentor";
-  // add user to database with appropriate role
-  addUserToDatabase(req.user, req.user.role);
-  return true;
+  const userRole = role === 0 ? "student" : "mentor";
+  if (userRole === "mentor") {
+    return true;
+  }
+  return false;
 };
 
 export default addMentorOrStudentWithHelpOfEmail;

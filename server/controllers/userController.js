@@ -2,6 +2,7 @@ import User from "../models/user.js";
 import { comparePassword, hashPassword } from "../helpers/authHelper.js";
 import jwt from "jsonwebtoken";
 import randomstring from "randomstring";
+import setStudentMentor from "../helpers/chekEmail.js";
 
 // register controller --------------- 1---------------- http://localhost:8000/api/users/register -------- Working
 const registerUser = async (req, res) => {
@@ -15,7 +16,15 @@ const registerUser = async (req, res) => {
         message: "User already exists",
       });
     }
-    const user = new User({ college, name, email, password: hashedPassword });
+    const isStudent = await setStudentMentor(email);
+    const isMentor = isStudent === "mentor" ? 1 : 0;
+    const user = new User({
+      college,
+      name,
+      email,
+      password: hashedPassword,
+      isMentor,
+    });
     await user.save();
 
     // Send a success response to the client
