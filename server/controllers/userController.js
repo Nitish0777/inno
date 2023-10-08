@@ -20,6 +20,8 @@ const registerUser = async (req, res) => {
     }
     const isStudent = await setStudentMentor(email);
     const isMentorOrStud = isStudent === "mentor" ? 1 : 0;
+    console.log("mentor or stud", isMentorOrStud);
+    console.log("mentor or stud", isStudent);
     const user = new User({
       college,
       name,
