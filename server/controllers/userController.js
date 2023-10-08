@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 import randomstring from "randomstring";
 import setStudentMentor from "../helpers/chekEmail.js";
 import nodemailer from "nodemailer";
+import { sendVerifyEmail } from "../helpers/sendVerifyEmail.js";
 
 // register controller --------------- 1---------------- http://localhost:8000/api/users/register -------- Working
 const registerUser = async (req, res) => {

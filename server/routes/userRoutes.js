@@ -9,6 +9,7 @@ import {
 import { requireSignIn } from "../middleware/authMiddleware.js";
 import multer from "multer";
 import path from "path";
+import { verifyEmail } from "../helpers/sendVerifyEmail.js";
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -35,5 +36,7 @@ router.get("/userupdate/:id", upload.single("image"), updateUserInfo);
 
 //updating image of the user
 router.get("/userimage/:id", updateUserImg);
+
+router.get("/verify", verifyEmail);
 
 export default router;
