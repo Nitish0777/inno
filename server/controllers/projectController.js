@@ -1,18 +1,17 @@
-import Projects from "../models/projectModel.js";
+import Projects from "../models/project.js";
 import unzipper from "unzipper";
 import path from "path";
 import fs from "fs";
 
 const uploadProject = async (req, res) => {
   try {
-    const { titel, discription, student_id, usedTechnology, onGoing } =
-      req.body;
+    const { titel, discription, user_id, techStack, status } = req.body;
     let folderStructure;
     let { originalname } = req.file;
     const folderName = originalname.slice(0, -4);
     originalname = originalname.split(" ").join("");
     const zipBuffer = req.file.buffer;
-    const myPath = `Projects/${student_id}`;
+    const myPath = `Projects/${user_id}`;
     const newFileName = `${Date.now()}_${originalname}`;
 
     // make dir
@@ -49,11 +48,11 @@ const uploadProject = async (req, res) => {
         const folderPathToTraverse = `./${myPath}/${folderName}`;
         folderStructure = buildFolderStructure(folderPathToTraverse);
         const project = await Projects.create({
-          onGoing,
+          status,
           titel,
           discription,
-          student_id,
-          usedTechnology,
+          user_id,
+          techStack,
           filePath: fileUrl,
           folderStructure,
         });
