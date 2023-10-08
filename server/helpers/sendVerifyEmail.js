@@ -1,4 +1,5 @@
 import nodemailer from "nodemailer";
+import User from "../models/user.js";
 
 const sendVerifyEmail = async (name, email, user_id) => {
   try {
@@ -29,4 +30,21 @@ const sendVerifyEmail = async (name, email, user_id) => {
   }
 };
 
-module.exports = sendVerifyEmail;
+const verifyEmail = async (req, res) => {
+  try {
+    const updatedInfo = await User.updateOne(
+      { _id: req.query.id },
+      { $set: { isVerified: 1 } }
+    );
+
+    if (!updatedInfo) throw new Error("Unable to verify email");
+    res.status(200).send({
+      success: true,
+      message: "Email verified successfully",
+    });
+  } catch (error) {
+    console.log("Unable to verify email", error);
+  }
+};
+
+module.exports = { sendVerifyEmail, verifyEmail };
