@@ -24,13 +24,14 @@ const registerUser = async (req, res) => {
       email,
       password: hashedPassword,
       isMentor,
+      isAdmin: 0,
     });
     await user.save();
 
     // Send a success response to the client
     return res.status(201).send({
       success: true,
-      message: "User registered successfully",
+      message: "Verify your email",
     });
   } catch (error) {
     console.error(error);

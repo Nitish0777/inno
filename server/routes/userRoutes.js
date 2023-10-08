@@ -15,9 +15,11 @@ const storage = multer.diskStorage({
     cb(null, path.join(__dirname, "/public/userImages"));
   },
   filename: (req, file, cb) => {
-    cb(null, Date.now() + file.originalname);
+    cb(null, Date.now() + "-" + file.originalname);
   },
 });
+
+export const upload = multer({ storage: storage });
 
 const router = express.Router();
 
@@ -29,7 +31,7 @@ router.post("/login", loginUser);
 router.get("/users/:id", requireSignIn, getUserInfo);
 
 //updating the data of the user
-router.get("/userupdate/:id", updateUserInfo);
+router.get("/userupdate/:id", upload.single("image"), updateUserInfo);
 
 //updating image of the user
 router.get("/userimage/:id", updateUserImg);
