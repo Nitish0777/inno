@@ -10,7 +10,7 @@ const projectSchema = new mongoose.Schema({
     required: true,
     max: 250,
   },
-  student_id: {
+  user_id: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
   },
@@ -20,13 +20,9 @@ const projectSchema = new mongoose.Schema({
   contributors: {
     type: [String],
   },
-  usedTechnology: {
+  techStack: {
     type: String,
     default: "",
-  },
-  rating: {
-    type: Number,
-    default: 0,
   },
   link: {
     type: String,
