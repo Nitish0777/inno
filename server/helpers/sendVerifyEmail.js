@@ -47,4 +47,4 @@ const verifyEmail = async (req, res) => {
   }
 };
 
-module.exports = { sendVerifyEmail, verifyEmail };
+export { sendVerifyEmail, verifyEmail };

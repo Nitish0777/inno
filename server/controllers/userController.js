@@ -19,13 +19,13 @@ const registerUser = async (req, res) => {
       });
     }
     const isStudent = await setStudentMentor(email);
-    const isMentor = isStudent === "mentor" ? 1 : 0;
+    const isMentorOrStud = isStudent === "mentor" ? 1 : 0;
     const user = new User({
       college,
       name,
       email,
       password: hashedPassword,
-      isMentor,
+      isMentor: isMentorOrStud,
       isAdmin: 0,
     });
     const userData = await user.save();
