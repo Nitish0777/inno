@@ -61,7 +61,7 @@ const uploadProject = async (req, res) => {
         res.json(project);
       })
       .on("error", (err) => {
-        res.json({ success: false, msg: "project not uploaded" });
+        res.status(500).send({ success: false, msg: "project not uploaded" });
         console.error("Error extracting ZIP file:", err);
       });
 
@@ -93,14 +93,45 @@ const uploadProject = async (req, res) => {
           });
         }
       });
-      return {
+      return res.status(200).send({
+        success: true,
+        msg: "project uploaded",
         type: "folder",
         name: folderName,
         children,
-      };
+      });
     }
   } catch (error) {
-    next(error);
+    return res
+      .status(500)
+      .send({ success: false, msg: "project not uploaded" });
   }
 };
-export { uploadProject };
+
+const getAllProjects = async (req, res) => {
+  try {
+    const allProjects = await Projects.find({ _id: req.params.id });
+    return res.status(200).json({ success: true, allProjects });
+  } catch (error) {
+    return res
+      .status(500)
+      .send({ success: false, msg: "server error in getting all projects" });
+  }
+};
+
+const getProjectsOnGoing = async (req, res) => {
+  try {
+    const { user_id } = req.body;
+    const data = await Projects.find(
+      { user_id },
+      { _id: 1, title: 1, discription: 1, techStack: 1, status: 1 }
+    );
+    return res.status(200).json({ success: true, data });
+  } catch (error) {
+    return res
+      .status(500)
+      .send({ success: false, msg: "server error in uploading project" });
+  }
+};
+
+export { uploadProject, getProjectsOnGoing, getAllProjects };
