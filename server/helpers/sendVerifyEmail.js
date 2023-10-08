@@ -19,7 +19,7 @@ const sendVerifyEmail = async (name, email, user_id) => {
       subject: "Verify Email",
       html: `<h1>Hi ${name}</h1>
         <p>Click on the link to verify your email</p>
-        <a href="http://127.0.0.1:${process.env.PORT}/verify?id=${user_id}">Click Here</a>
+        <a href="http://127.0.0.1:${process.env.PORT}/api/users/verify?id=${user_id}">Click Here</a>
         `,
     };
     const result = await transporter.sendMail(mailOptions);
@@ -38,6 +38,7 @@ const verifyEmail = async (req, res) => {
     );
 
     if (!updatedInfo) throw new Error("Unable to verify email");
+    console.log("Email verified successfully", updatedInfo);
     res.status(200).send({
       success: true,
       message: "Email verified successfully",
