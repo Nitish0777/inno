@@ -3,6 +3,7 @@ import { comparePassword, hashPassword } from "../helpers/authHelper.js";
 import jwt from "jsonwebtoken";
 import randomstring from "randomstring";
 import setStudentMentor from "../helpers/chekEmail.js";
+import nodemailer from "nodemailer";
 
 // register controller --------------- 1---------------- http://localhost:8000/api/users/register -------- Working
 const registerUser = async (req, res) => {
@@ -26,8 +27,10 @@ const registerUser = async (req, res) => {
       isMentor,
       isAdmin: 0,
     });
-    await user.save();
-
+    const userData = await user.save();
+    if (userData) {
+      sendVerifyEmail(name, email, userData._id);
+    }
     // Send a success response to the client
     return res.status(201).send({
       success: true,
