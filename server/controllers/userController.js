@@ -71,7 +71,13 @@ const loginUser = async (req, res) => {
     if (!isMatch) {
       return res.status(400).send({
         success: false,
-        message: "Incorrect Password",
+        message: "Incorrect Email and Password",
+      });
+    }
+    if (!user.isVerified) {
+      return res.status(400).send({
+        success: false,
+        message: "Please verify your email",
       });
     }
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
