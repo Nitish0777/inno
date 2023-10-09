@@ -5,6 +5,7 @@ import {
   getUserInfo,
   updateUserInfo,
   updateUserImg,
+  sendVerificationLink,
 } from "../controllers/userController.js";
 import { requireSignIn } from "../middleware/authMiddleware.js";
 import multer from "multer";
@@ -38,5 +39,7 @@ router.get("/userupdate/:id", upload.single("image"), updateUserInfo);
 router.get("/userimage/:id", updateUserImg);
 
 router.get("/verify", verifyEmail);
+
+router.post("/verification", sendVerificationLink);
 
 export default router;

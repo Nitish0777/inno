@@ -232,4 +232,35 @@ const updateUserImg = async (req, res) => {
   }
 };
 
-export { registerUser, loginUser, getUserInfo, updateUserInfo, updateUserImg };
+const sendVerificationLink = async (req, res) => {
+  try {
+    const { email } = req.body;
+    const userData = await User.findOne({ email });
+    if (!userData) {
+      return res.status(404).send({
+        success: false,
+        message: "Email is  not found",
+      });
+    }
+    sendVerifyEmail(userData.name, userData.email, userData._id);
+    return res.status(200).send({
+      success: true,
+      message: "Verify your email",
+    });
+  } catch (error) {
+    return res.status(500).send({
+      success: false,
+      message: "Error in sending verification link",
+      error: error.message,
+    });
+  }
+};
+
+export {
+  registerUser,
+  loginUser,
+  getUserInfo,
+  updateUserInfo,
+  updateUserImg,
+  sendVerificationLink,
+};
