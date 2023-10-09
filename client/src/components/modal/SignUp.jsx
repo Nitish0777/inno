@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const SignUp = () => {
   const [college, setCollege] = useState("");
@@ -14,7 +16,7 @@ const SignUp = () => {
       return;
     }
     try {
-      const res = axios.post(
+      const res = await axios.post(
         `${process.env.REACT_APP_API}/api/users/register`,
         {
           college,
@@ -23,14 +25,17 @@ const SignUp = () => {
           password,
         }
       );
+      console.log("res from backend", res);
       if (res.data.success) {
         console.log(res.data);
-        toast.success(res.data.message);
+        toast.success("Verify your mail");
       } else {
+        console.log("Sign up error", res.data.messages);
         toast.error(res.data.message);
       }
     } catch (error) {
       console.log(error);
+      toast.error(error.response.data.message);
     }
   };
 
@@ -63,7 +68,6 @@ const SignUp = () => {
           placeholder="Confirm Password"
           onChange={(e) => setConfirmPassword(e.target.value)}
         />
-        <input type="password" placeholder="Confirm Password" />
         <button type="submit">Sign Up</button>
       </form>
     </div>

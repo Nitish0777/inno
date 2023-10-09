@@ -1,7 +1,8 @@
 import "./App.css";
 import { ToastContainer } from "react-toastify";
-import { Routes, Route } from "react-router-dom";
+// import { Routes, Route } from "react-router-dom";
 import SignIn from "./components/modal/SignIn";
+import SignUp from "./components/modal/SignUp";
 
 function App() {
   return (
@@ -12,6 +13,8 @@ function App() {
       {/* <Routes>
         <Route path="/" element={<SignIn />} />
       </Routes> */}
+      <h1>Sign up</h1>
+      <SignUp />
     </div>
   );
 }
