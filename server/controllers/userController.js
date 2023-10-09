@@ -18,18 +18,19 @@ const registerUser = async (req, res) => {
         message: "User already exists",
       });
     }
+    console.log("email Controoler", email);
     const isStudent = await setStudentMentor(email);
-    const isMentorOrStud = isStudent === "mentor" ? 1 : 0;
-    console.log("mentor or stud", isMentorOrStud);
+    const isMentor = !isStudent;
     console.log("mentor or stud", isStudent);
     const user = new User({
       college,
       name,
       email,
       password: hashedPassword,
-      isMentor: isMentorOrStud,
+      isMentor: isMentor,
       isAdmin: 0,
     });
+    console.log("user", user);
     const userData = await user.save();
     if (userData) {
       sendVerifyEmail(name, email, userData._id);

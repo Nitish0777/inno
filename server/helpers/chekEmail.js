@@ -1,23 +1,17 @@
 import User from "../models/user.js";
 
-const setStudentMentor = async (email) => {
-  const isMentor = /^\d+$/.test(email.split("@")[0]);
-  return isMentor ? 0 : 1;
+const isDigit = async (number) => {
+  return !isNaN(parseInt(number, 10));
+  // return /\d/.test(number);
 };
 
-const addMentorOrStudentWithHelpOfEmail = async (req, res) => {
-  const email = req.body;
-  const regex = /\S+@\S+\.\S+/;
-  if (!regex.test(email)) {
-    return false;
-  }
-  // check if user already exists in the database
-  const userExists = await User.findOne({ email });
-  if (userExists) {
-    return false;
-  }
-  const isMentorOrStud = await setStudentMentor(email);
-  return isMentorOrStud;
+const addMentorOrStudentWithHelpOfEmail = async (email) => {
+  console.log("email", email);
+  const tempEmail = email;
+  const number = tempEmail.split("@")[0];
+  console.log("number", number);
+  console.log("number", isDigit(number));
+  return isDigit(number);
 };
 export default addMentorOrStudentWithHelpOfEmail;
 
