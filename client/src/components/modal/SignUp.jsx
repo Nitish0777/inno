@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 
@@ -8,6 +9,8 @@ const SignUp = () => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+
+  const navigate = useNavigate();
 
   const handleSignUp = async (e) => {
     e.preventDefault();
@@ -29,6 +32,7 @@ const SignUp = () => {
       if (res.data.success) {
         console.log(res.data);
         toast.success("Verify your mail");
+        navigate("/login");
       } else {
         console.log("Sign up error", res.data.messages);
         toast.error(res.data.message);
