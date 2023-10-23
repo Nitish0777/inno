@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/Auth";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [auth, setAuth] = useAuth();
 
   const navigate = useNavigate();
   const handleSignIn = async (e) => {
@@ -15,10 +17,10 @@ const SignIn = () => {
         email,
         password,
       });
+      console.log(res);
       if (res.data.success) {
-        console.log(res.data);
+        console.log(res);
         navigate("/");
-
         toast.success(res.data.message);
       } else {
         toast.error(res.data.message);
