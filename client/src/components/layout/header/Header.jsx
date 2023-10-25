@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import logo from "../../../assets/light.png";
 import "./header.css";
+import { useAuth } from "../../../context/Auth";
 const Header = () => {
+  const [auth, setAuth] = useAuth();
   const [isDarkTheme, setIsDarkTheme] = useState(false);
   useEffect(() => {
     if (isDarkTheme) {
@@ -35,13 +38,13 @@ const Header = () => {
   return (
     <header className="sticky-header">
       <div className="box"></div>
-      {/* <div className="box-2"></div> */}
       <div className="container">
         <a href="#" className="logo">
           <img src={logo} className="logoimg" height="50" width="150" />
         </a>
         <ul className="links">
           <li>
+            {JSON.stringify(auth, null, 4)}
             <a href="#home">Home</a>
           </li>
           <li>
@@ -53,8 +56,14 @@ const Header = () => {
           <li>
             <a href="dashboard.html">Dashboard</a>
           </li>
+          <li
+            className="signin"
+            style={{ color: "blue", background: "yellow" }}
+          >
+            <Link to="/login">Sign In</Link>
+          </li>
           <li className="signin">
-            <a href="signin.html">Sign In</a>
+            <Link to="/signup">Sign Up</Link>
           </li>
         </ul>
         <div className="theme-toggle">

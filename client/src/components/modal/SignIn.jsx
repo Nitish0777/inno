@@ -20,6 +20,11 @@ const SignIn = () => {
       console.log(res);
       if (res.data.success) {
         console.log(res);
+        setAuth({
+          ...auth,
+          token: res.data.token,
+          user: res.data.user,
+        });
         navigate("/");
         toast.success(res.data.message);
       } else {
