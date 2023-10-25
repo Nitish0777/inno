@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SignIn from "./components/modal/SignIn";
 import SignUp from "./components/modal/SignUp";
 import About from "./pages/homePage/about/About";
+import Header from "./components/layout/header/Header";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           path="/"
           element={
             <>
+              <Header />
               <About />
             </>
           }
