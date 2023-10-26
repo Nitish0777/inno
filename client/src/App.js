@@ -8,6 +8,7 @@ import About from "./pages/homePage/about/About";
 import Header from "./components/layout/header/Header";
 import { AuthProvider } from "./context/Auth";
 import Footer from "./components/layout/footer/Footer";
+import Hero from "./pages/homePage/hero/Hero";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             element={
               <>
                 <Header />
+                <Hero />
                 <About />
                 <Footer />
               </>
