@@ -72,21 +72,21 @@ const Header = () => {
               <Link to="/signup" className="signin">
                 Sign Up
               </Link>
-              <Link to="/login" className="signin">
+              <Link
+                to="/login"
+                className="signin"
+                style={{ marginLeft: "12px" }}
+              >
                 Sign In
               </Link>
             </li>
           ) : (
             <li>
-              <Link onClick={handleLogout}>Logout</Link>
+              <Link className="signin" onClick={handleLogout}>
+                Logout
+              </Link>
             </li>
           )}
-          <li className="signin">
-            <Link to="/login">Sign In</Link>
-          </li>
-          <li className="signin">
-            <Link to="/signup">Sign Up</Link>
-          </li>
         </ul>
         <div className="theme-toggle">
           <input
@@ -98,6 +98,13 @@ const Header = () => {
           <label for="theme-toggle-checkbox"></label>
         </div>
         <div id="google_element" onClick={openLanguageMenu}></div>
+        {auth?.user ? (
+          <div id="menuToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        ) : null}
       </div>
     </header>
   );
