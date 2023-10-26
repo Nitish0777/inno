@@ -3,6 +3,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/Auth";
+import Layout from "../layout/Layout.jsx";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
@@ -40,24 +41,26 @@ const SignIn = () => {
   };
 
   return (
-    <div>
-      Sign In form
-      <form onSubmit={handleSignIn}>
-        <input
-          type="text"
-          placeholder="Email"
-          name="email"
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          name="password"
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button type="submit">Sign In</button>
-      </form>
-    </div>
+    <Layout>
+      <div>
+        Sign In form
+        <form onSubmit={handleSignIn}>
+          <input
+            type="text"
+            placeholder="Email"
+            name="email"
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            name="password"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <button type="submit">Sign In</button>
+        </form>
+      </div>
+    </Layout>
   );
 };
 

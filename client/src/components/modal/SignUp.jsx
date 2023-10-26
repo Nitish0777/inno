@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
+import Layout from "../layout/Layout";
 
 const SignUp = () => {
   const [college, setCollege] = useState("");
@@ -44,37 +45,39 @@ const SignUp = () => {
   };
 
   return (
-    <div>
-      Sign Up form
-      <form onSubmit={handleSignUp}>
-        <input
-          type="text"
-          placeholder="College"
-          onChange={(e) => setCollege(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Name"
-          onChange={(e) => setName(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Email"
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Confirm Password"
-          onChange={(e) => setConfirmPassword(e.target.value)}
-        />
-        <button type="submit">Sign Up</button>
-      </form>
-    </div>
+    <Layout>
+      <div>
+        Sign Up form
+        <form onSubmit={handleSignUp}>
+          <input
+            type="text"
+            placeholder="College"
+            onChange={(e) => setCollege(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="Name"
+            onChange={(e) => setName(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="Email"
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <input
+            type="password"
+            placeholder="Confirm Password"
+            onChange={(e) => setConfirmPassword(e.target.value)}
+          />
+          <button type="submit">Sign Up</button>
+        </form>
+      </div>
+    </Layout>
   );
 };
 
