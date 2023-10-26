@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import logo from "../../../assets/light.png";
 import "./header.css";
 import { useAuth } from "../../../context/Auth";
+import { toast } from "react-toastify";
 const Header = () => {
   const [auth, setAuth] = useAuth();
   const [isDarkTheme, setIsDarkTheme] = useState(false);
@@ -35,31 +36,52 @@ const Header = () => {
     }
   };
 
+  const handleLogout = () => {
+    setAuth({
+      ...auth,
+      user: null,
+      token: "",
+    });
+    localStorage.removeItem("auth");
+    toast.success("Logged out successfully");
+  };
+
   return (
     <header className="sticky-header">
       <div className="box"></div>
       <div className="container">
-        <a href="#" className="logo">
+        <Link to="" className="logo">
           <img src={logo} className="logoimg" height="50" width="150" />
-        </a>
+        </Link>
         <ul className="links">
           <li>
-            {JSON.stringify(auth, null, 4)}
-            <a href="#home">Home</a>
+            {/* {JSON.stringify(auth, null, 4)} */}
+            <Link href="#home">Home</Link>
           </li>
           <li>
-            <a href="#about-us">About Us</a>
+            <Link href="#about-us">About Us</Link>
           </li>
           <li>
-            <a href="#conatct">Contact</a>
+            <Link href="#conatct">Contact</Link>
           </li>
           <li>
-            <a href="dashboard.html">Dashboard</a>
+            <Link href="dashboard.html">Dashboard</Link>
           </li>
-          <li
-            className="signin"
-            style={{ color: "blue", background: "yellow" }}
-          >
+          {!auth.user ? (
+            <li>
+              <Link to="/signup" className="signin">
+                Sign Up
+              </Link>
+              <Link to="/login" className="signin">
+                Sign In
+              </Link>
+            </li>
+          ) : (
+            <li>
+              <Link onClick={handleLogout}>Logout</Link>
+            </li>
+          )}
+          <li className="signin">
             <Link to="/login">Sign In</Link>
           </li>
           <li className="signin">

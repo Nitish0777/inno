@@ -13,20 +13,24 @@ const SignIn = () => {
   const handleSignIn = async (e) => {
     e.preventDefault();
     try {
-      const res = axios.post(`${process.env.REACT_APP_API}/api/users/login`, {
-        email,
-        password,
-      });
+      const res = await axios.post(
+        `${process.env.REACT_APP_API}/api/users/login`,
+        {
+          email,
+          password,
+        }
+      );
       console.log(res);
       if (res.data.success) {
         console.log(res);
+        const { user, token } = res.data;
         setAuth({
-          ...auth,
-          token: res.data.token,
-          user: res.data.user,
+          token: token,
+          user: user,
         });
+        localStorage.setItem("auth", JSON.stringify({ token, user }));
+        toast.success("Sign in successful");
         navigate("/");
-        toast.success(res.data.message);
       } else {
         toast.error(res.data.message);
       }
