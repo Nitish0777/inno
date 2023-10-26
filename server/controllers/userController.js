@@ -83,6 +83,7 @@ const loginUser = async (req, res) => {
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
       expiresIn: "7d",
     });
+
     return res.status(200).send({
       success: true,
       message: "User logged in successfully",
@@ -92,6 +93,7 @@ const loginUser = async (req, res) => {
         email: user.email,
         college: user.college,
         _id: user._id,
+        isMentor: user.isMentor,
       },
     });
   } catch (error) {

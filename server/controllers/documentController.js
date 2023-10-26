@@ -7,7 +7,6 @@ const uploadDocumentation = async (req, res) => {
 
     if (req.files) {
       const file = req.files.docImg;
-
     }
   } catch (error) {
     return res.status(500).send({
